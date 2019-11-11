@@ -1,15 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { ReminderApp } from './component/app'
 
-const reminderApp = document.querySelector('#reminder-app')
+const renderToDom = () => {
+  const reminderApp = document.querySelector('#reminder-app')
 
-const ReminderApp = () => {
-  return (
-    <div>Hello</div>
-  )
+  if(reminderApp !== null){
+    render(
+      <ReminderApp/>,
+      reminderApp
+    )
+  }
 }
 
-render(
-  <ReminderApp/>,
-  reminderApp
-)
+renderToDom();
+
+export { renderToDom }

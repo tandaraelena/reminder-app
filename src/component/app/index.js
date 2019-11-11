@@ -1,0 +1,1 @@
+export { ReminderApp } from './app.component'
