@@ -1,10 +1,17 @@
 import React from 'react'
+import { StyledModal } from './modal.style';
+import { Button } from '../button'
 
-const Modal = ({ children }) => {
+const Modal = ({ children, onClose, onSuccess }) => {
   return (
-    <div>
-      mod
-    </div>
+    <StyledModal>
+      <div>
+        <Button onClick={onClose} label="">
+          <div className="icon-cross"></div>
+        </Button>
+      </div>
+      {children}
+    </StyledModal>
   )
 }
 

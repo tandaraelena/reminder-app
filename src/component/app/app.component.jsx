@@ -3,10 +3,15 @@ import { ActionBar } from '../action-bar';
 import { Calendar } from '../calendar';
 import { Modal } from '../modal';
 import { reminderReducer, initialReminderValue } from './app.reducer';
+import { unsetReminderAction } from './app.actions';
 
 const initialValue = null;
 const ReminderApp = () => {
   const [currentReminder, setReminder] = useReducer(reminderReducer, initialReminderValue);
+  const onClose = () => {
+    // close the modal
+    setReminder(unsetReminderAction())
+  }
 
   return (
     <div>
@@ -14,7 +19,12 @@ const ReminderApp = () => {
         setReminder={setReminder}
       />
       <Calendar/>
-      {currentReminder && <Modal />}
+      {currentReminder && 
+        <Modal 
+          onClose={onClose}
+        >
+          <div>hi</div>
+        </Modal>}
     </div>
   )
 }
