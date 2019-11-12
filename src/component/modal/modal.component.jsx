@@ -20,6 +20,11 @@ const Modal = ({ children, onEdit, onDelete, onClose, onSuccess }) => {
         <StyledModalBody>
           {children}
         </StyledModalBody>
+        <div>
+          <Button onClick={onSuccess} label="Save">
+            <i className="icon-save"></i>
+          </Button>
+        </div>
       </StyledModal>
     </StyledModalWrapper>
   )
