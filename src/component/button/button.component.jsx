@@ -7,6 +7,7 @@ const Button = ({ onClick }) => {
       data-testid='nice-button'
     >
       hi
+      <div className="icon-pencil"></div>
     </button>
   )
 }
