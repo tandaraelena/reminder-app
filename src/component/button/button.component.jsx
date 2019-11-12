@@ -7,8 +7,8 @@ const Button = ({ onClick, label = 'hey', children }) => {
       onClick={onClick}
       data-testid='nice-button'
     >
-      <span>{label}</span>
       {children}
+      <span>{label}</span>
     </StyledButton>
   )
 }

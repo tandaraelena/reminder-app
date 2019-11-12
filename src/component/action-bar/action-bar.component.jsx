@@ -9,7 +9,7 @@ const ActionBar = () => {
   return (
     <StyledActionBar>
       <Button label="Create" >
-        <i className="icon-pencil"></i>
+        <i className="icon-plus"></i>
       </Button>
       <Button label="Today" >
         <i className="icon-calendar"></i>
