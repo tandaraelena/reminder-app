@@ -4,6 +4,7 @@ import { Calendar } from '../calendar';
 import { Modal } from '../modal';
 import { reminderReducer, initialReminderValue } from './app.reducer';
 import { unsetReminderAction } from './app.actions';
+import moment from 'moment';
 
 const initialValue = null;
 const ReminderApp = () => {
@@ -12,6 +13,9 @@ const ReminderApp = () => {
     // close the modal
     setReminder(unsetReminderAction())
   }
+
+  const dateForInput = moment((currentReminder && currentReminder.date || 0) * 1000).format('YYYY-MM-DD');
+  console.log(dateForInput, currentReminder)
 
   return (
     <div>
@@ -23,7 +27,9 @@ const ReminderApp = () => {
         <Modal 
           onClose={onClose}
         >
-          <div>hi</div>
+          <div>
+            <input type="date" value={dateForInput} onChange={() => {}}/>
+          </div>
         </Modal>}
     </div>
   )
