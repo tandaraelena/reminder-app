@@ -14,8 +14,10 @@ const Calendar = () => {
   }
 
   const renderCalendarBody = () => {
-    return dayList.map(({ date }) => (
-      <StyledCalendarCell key={date}>{date}</StyledCalendarCell>
+    const currentMonth = moment().format('MMM');
+
+    return dayList.map(({ date, month }) => (
+      <StyledCalendarCell key={date} inMonth={currentMonth === month}>{date}</StyledCalendarCell>
     ))
   }
 
@@ -26,19 +28,9 @@ const Calendar = () => {
     .minute(0)
     .second(0);
 
-  const firstDayInCalendar = moment()
-    .locale('en-gb')
-    .date(1)
-    .hour(0)
-    .minute(0)
-    .second(0)
+  const firstDayInCalendar = firstDayInMonth
     .subtract(
-      moment()
-        .locale('en-gb')
-        .date(1)
-        .hour(0)
-        .minute(0)
-        .second(0).weekday() - 1,
+      firstDayInMonth.weekday() - 1,
         'd'
     )
   
@@ -51,7 +43,8 @@ const Calendar = () => {
     }))
     .map(({ time }) => ({
       time,
-      date: moment(time).format('MMM Do YYYY')
+      date: moment(time).format('MMM Do'),
+      month: moment(time).format('MMM')
     }))
 
   return (
