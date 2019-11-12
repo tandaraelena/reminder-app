@@ -1,10 +1,10 @@
-import React from 'react'
-import { Button } from '../button'
+import React from 'react';
+import { ActionBar } from '../action-bar'
 
 const ReminderApp = () => {
   return (
     <div>
-      <Button/>
+      <ActionBar/>
     </div>
   )
 }
