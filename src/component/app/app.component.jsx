@@ -28,7 +28,22 @@ const ReminderApp = () => {
           onClose={onClose}
         >
           <div>
-            <input type="date" value={dateForInput} onChange={() => {}}/>
+            <div>
+              <label htmlFor='date'>Date: </label>
+              <input 
+                id='date'
+                type="date" 
+                value={dateForInput} 
+                onChange={() => { }} />
+            </div>
+            <div>
+              <label htmlFor='time'>Time: </label>
+              <input 
+                id='time'
+                type="time" 
+                value={'00:00'} 
+                onChange={() => { }} />
+            </div>
           </div>
         </Modal>}
     </div>
