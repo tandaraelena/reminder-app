@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { StyledCalendar } from './calendar.style';
+import { StyledCalendar, StyledCalendarHeader, StyledCalendarCell } from './calendar.style';
 
 const Calendar = () => {
   const weekdays = Array
@@ -9,13 +9,13 @@ const Calendar = () => {
   
   const renderCalendarHeader = () => {
     return weekdays.map(day => (
-      <div key={day}>{day}</div>
+      <StyledCalendarHeader key={day}>{day}</StyledCalendarHeader>
     ))
   }
 
   const renderCalendarBody = () => {
     return dayList.map(({ date }) => (
-      <div key={date}>{date}</div>
+      <StyledCalendarCell key={date}>{date}</StyledCalendarCell>
     ))
   }
 
