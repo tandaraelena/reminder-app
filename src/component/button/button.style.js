@@ -18,7 +18,7 @@ export const StyledButton = styled.button`
     color: rgb(92, 32, 213);
     background-color: white;
     position: absolute;
-    top: 20px;
+    top: 40px;
     left: 0;
     width: 100%;
     height: 100%;
