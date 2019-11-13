@@ -42,6 +42,11 @@ export const reminderListReducer = (state = [], action) => {
       return [...action.list]
     case ADD_REMINDER_TO_LIST: 
     // TODO, return the one that is sorted by unix time ascendant
+    if(action.reminder.update){
+      return state.map(reminder => reminder.unix === action.reminder.unix 
+        ? ({ ...action.reminder, update: false }) 
+        : reminder)
+    }
       return [...state, action.reminder]
     default: 
       return state

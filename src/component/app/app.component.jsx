@@ -11,7 +11,7 @@ const ReminderApp = () => {
 
   const [reminderList, updateReminderList] = useReducer(reminderListReducer, initialReminderList);
 
-  const dateForInput = moment((currentReminder && currentReminder.date || 0) * 1000).format('YYYY-MM-DD');
+  const dateForInput = moment((currentReminder && currentReminder.unix || undefined)).format('YYYY-MM-DD');
   // console.log(dateForInput, currentReminder)
 
   const title = (currentReminder && currentReminder.title) || '';
@@ -43,6 +43,7 @@ const ReminderApp = () => {
         date: myDate.current.value,
         time: myTime.current.value,
         unix: moment(`${myDate.current.value} ${myTime.current.value}`).unix() * 1000,
+        update: (currentReminder && currentReminder.update) || false,
       }
       updateReminderList(addReminderToListAction(reminder))
       setReminder(unsetReminderAction())

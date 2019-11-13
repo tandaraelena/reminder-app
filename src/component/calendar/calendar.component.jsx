@@ -19,7 +19,7 @@ const Calendar = ({ reminderList, setReminder, createReminderAction }) => {
     const currentMonth = moment().format('MMM');
 
     return dayList.map(({ date, month, unix }) => {
-      console.log(unix, date)
+      // console.log(unix, date)
 
       const reminderToShowList = reminderList.filter(reminder => {
         return reminder.unix >= unix && reminder.unix < unix + dayInMilliseconds
@@ -39,6 +39,7 @@ const Calendar = ({ reminderList, setReminder, createReminderAction }) => {
                     date,
                     time,
                     unix,
+                    update: true,
                   }))
                 }
                 return (
