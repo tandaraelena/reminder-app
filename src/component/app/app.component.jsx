@@ -2,12 +2,14 @@ import React, { useReducer, useRef } from 'react';
 import { ActionBar } from '../action-bar';
 import { Calendar } from '../calendar';
 import { Modal } from '../modal';
-import { reminderReducer, initialReminderValue } from './app.reducer';
-import { unsetReminderAction } from './app.actions';
+import { reminderReducer, initialReminderValue, reminderListReducer, initialReminderList } from './app.reducer';
+import { unsetReminderAction, addReminderToListAction } from './app.actions';
 import moment from 'moment';
 
 const ReminderApp = () => {
   const [currentReminder, setReminder] = useReducer(reminderReducer, initialReminderValue);
+
+  const [reminderList, updateReminderList] = useReducer(reminderListReducer, initialReminderList);
 
   const dateForInput = moment((currentReminder && currentReminder.date || 0) * 1000).format('YYYY-MM-DD');
   // console.log(dateForInput, currentReminder)
@@ -23,11 +25,23 @@ const ReminderApp = () => {
   }
 
   const onSuccess = () => {
-    console.log(
-      myDate.current.value,
-      myTime.current.value,
-      myTitle.current.value,
-    )
+    // only add reminder if the values are present
+    if (myDate.current.value &&
+      myTime.current.value &&
+      myTitle.current.value) {
+        console.log(
+          myDate.current.value,
+          myTime.current.value,
+          myTitle.current.value,
+        )
+      const reminder = {
+        title: myTitle.current.value,
+        date: myDate.current.value,
+        time: myTime.current.value,
+        unix: moment(`${myDate.current.value} ${myTime.current.value}`).unix() * 1000,
+      }
+      updateReminderList(addReminderToListAction(reminder))
+      }
   }
 
   return (
@@ -70,6 +84,9 @@ const ReminderApp = () => {
             </div>
           </div>
         </Modal>}
+      <pre>
+        {JSON.stringify(reminderList, null, 2)}
+        </pre>
     </div>
   )
 }
