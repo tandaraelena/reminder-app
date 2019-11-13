@@ -1,7 +1,12 @@
-import { SET_REMINDER, UNSET_REMINDER, ADD_REMINDER_TO_LIST } from "./app.constants";
+import { SET_REMINDER, UNSET_REMINDER, ADD_REMINDER_TO_LIST, DELETE_REMINDER } from "./app.constants";
 
 export const createReminderAction = reminder => ({
   type: SET_REMINDER,
+  reminder,
+})
+
+export const deleteReminderAction = reminder => ({
+  type: DELETE_REMINDER,
   reminder,
 })
 

@@ -3,7 +3,7 @@ import { ActionBar } from '../action-bar';
 import { Calendar } from '../calendar';
 import { Modal } from '../modal';
 import { reminderReducer, initialReminderValue, reminderListReducer, initialReminderList } from './app.reducer';
-import { unsetReminderAction, addReminderToListAction, createReminderAction } from './app.actions';
+import { unsetReminderAction, addReminderToListAction, createReminderAction, deleteReminderAction } from './app.actions';
 import moment from 'moment';
 
 const ReminderApp = () => {
@@ -28,16 +28,24 @@ const ReminderApp = () => {
     setReminder(unsetReminderAction())
   }
 
+  const onDelete = () => {
+    // removes the reminder
+    updateReminderList(deleteReminderAction(currentReminder))
+    setReminder(unsetReminderAction())
+  }
+
   const onSuccess = () => {
     // only add reminder if the values are present
     if (myDate.current.value &&
       myTime.current.value &&
       myTitle.current.value) {
-        console.log(
-          myDate.current.value,
-          myTime.current.value,
-          myTitle.current.value,
-        )
+
+        // console.log(
+        //   myDate.current.value,
+        //   myTime.current.value,
+        //   myTitle.current.value,
+        // )
+
       const reminder = {
         title: myTitle.current.value,
         date: myDate.current.value,
@@ -45,6 +53,7 @@ const ReminderApp = () => {
         unix: moment(`${myDate.current.value} ${myTime.current.value}`).unix() * 1000,
         update: (currentReminder && currentReminder.update) || false,
       }
+
       updateReminderList(addReminderToListAction(reminder))
       setReminder(unsetReminderAction())
       }
@@ -64,6 +73,7 @@ const ReminderApp = () => {
         <Modal 
           onSuccess={onSuccess}
           onClose={onClose}
+          onDelete={onDelete}
         >
           <div>
             <div>
@@ -96,9 +106,9 @@ const ReminderApp = () => {
             </div>
           </div>
         </Modal>}
-      <pre>
+      {/* <pre>
         {JSON.stringify(reminderList, null, 2)}
-        </pre>
+        </pre> */}
     </div>
   )
 }
