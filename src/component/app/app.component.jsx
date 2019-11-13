@@ -3,7 +3,7 @@ import { ActionBar } from '../action-bar';
 import { Calendar } from '../calendar';
 import { Modal } from '../modal';
 import { reminderReducer, initialReminderValue, reminderListReducer, initialReminderList } from './app.reducer';
-import { unsetReminderAction, addReminderToListAction } from './app.actions';
+import { unsetReminderAction, addReminderToListAction, createReminderAction } from './app.actions';
 import moment from 'moment';
 
 const ReminderApp = () => {
@@ -13,6 +13,10 @@ const ReminderApp = () => {
 
   const dateForInput = moment((currentReminder && currentReminder.date || 0) * 1000).format('YYYY-MM-DD');
   // console.log(dateForInput, currentReminder)
+
+  const title = (currentReminder && currentReminder.title) || '';
+
+  const time = (currentReminder && currentReminder.time) || '00:00';
 
   const myTitle = useRef();
   const myDate = useRef();
@@ -41,6 +45,7 @@ const ReminderApp = () => {
         unix: moment(`${myDate.current.value} ${myTime.current.value}`).unix() * 1000,
       }
       updateReminderList(addReminderToListAction(reminder))
+      setReminder(unsetReminderAction())
       }
   }
 
@@ -49,7 +54,11 @@ const ReminderApp = () => {
       <ActionBar 
         setReminder={setReminder}
       />
-      <Calendar reminderList={reminderList}/>
+      <Calendar 
+        reminderList={reminderList}
+        createReminderAction={createReminderAction}
+        setReminder={setReminder}
+      />
       {currentReminder && 
         <Modal 
           onSuccess={onSuccess}
@@ -59,6 +68,7 @@ const ReminderApp = () => {
             <div>
               <label htmlFor='title'>Title: </label>
               <input 
+                defaultValue={title}
                 ref={myTitle}
                 id='title'
                 maxLength={50}
@@ -78,6 +88,7 @@ const ReminderApp = () => {
             <div>
               <label htmlFor='time'>Time: </label>
               <input 
+                defaultValue={time}
                 ref={myTime}
                 id='time'
                 type="time"  />

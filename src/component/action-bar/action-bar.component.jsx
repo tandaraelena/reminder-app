@@ -11,7 +11,7 @@ const ActionBar = ({ setReminder }) => {
     <StyledActionBar>
       <Button 
         label="Create"
-        onClick={() => setReminder(createReminderAction(moment().unix()))}
+        onClick={() => setReminder(createReminderAction({ date: moment().unix()}))}
       >
         <i className="icon-plus"></i>
       </Button>

@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { StyledCalendar, StyledCalendarHeader, StyledCalendarCell, StyledCalendarReminder, StyledCalendarReminderList } from './calendar.style';
 
-const Calendar = ({ reminderList }) => {
+const Calendar = ({ reminderList, setReminder, createReminderAction }) => {
   const dayInMilliseconds = 1000 + 60 * 60 * 24 * 1000;
 
   const weekdays = Array
@@ -22,7 +22,7 @@ const Calendar = ({ reminderList }) => {
       console.log(unix, date)
 
       const reminderToShowList = reminderList.filter(reminder => {
-        return reminder.unix > unix && reminder.unix < unix + dayInMilliseconds
+        return reminder.unix >= unix && reminder.unix < unix + dayInMilliseconds
       });
 
       return (
@@ -33,8 +33,18 @@ const Calendar = ({ reminderList }) => {
             {date}
             {reminderToShowList.length && <StyledCalendarReminderList>
               {reminderToShowList.map(({ title, date, time, unix }) => {
+                const handleReminder = () => {
+                  setReminder(createReminderAction({
+                    title,
+                    date,
+                    time,
+                    unix,
+                  }))
+                }
                 return (
-                  <StyledCalendarReminder key={unix}>{title}</StyledCalendarReminder>
+                  <StyledCalendarReminder 
+                    onClick={handleReminder}
+                    key={unix}>{title}</StyledCalendarReminder>
                 )
               })}
             </StyledCalendarReminderList>}
