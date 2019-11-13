@@ -6,6 +6,23 @@ export const StyledCalendarHeader = styled.div`
   border: 1px solid lightblue;
   background-color: lightcoral;
 `
+export const StyledCalendarReminder = styled.div`
+  font-size: 10px;
+  border-bottom: 1px solid red;
+  padding: 1px 2px;
+  cursor: pointer;
+
+  &:last-child {
+    border: 0;
+  }
+`
+
+export const StyledCalendarReminderList = styled.div`
+  display: grid;
+  border-radius: 5px;
+  border: 1px solid red;
+  margin: 2px;
+`
 
 export const StyledCalendarCell = styled.div`
   padding: 1rem 0;

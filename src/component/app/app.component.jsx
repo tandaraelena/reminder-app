@@ -49,7 +49,7 @@ const ReminderApp = () => {
       <ActionBar 
         setReminder={setReminder}
       />
-      <Calendar/>
+      <Calendar reminderList={reminderList}/>
       {currentReminder && 
         <Modal 
           onSuccess={onSuccess}

@@ -1,8 +1,10 @@
 import React from 'react';
 import moment from 'moment';
-import { StyledCalendar, StyledCalendarHeader, StyledCalendarCell } from './calendar.style';
+import { StyledCalendar, StyledCalendarHeader, StyledCalendarCell, StyledCalendarReminder, StyledCalendarReminderList } from './calendar.style';
 
-const Calendar = () => {
+const Calendar = ({ reminderList }) => {
+  const dayInMilliseconds = 1000 + 60 * 60 * 24 * 1000;
+
   const weekdays = Array
   .from({ length: 7 }, (_,key) => key + 1)
   .map(n => moment().weekday(n).format('dddd'))
@@ -16,9 +18,29 @@ const Calendar = () => {
   const renderCalendarBody = () => {
     const currentMonth = moment().format('MMM');
 
-    return dayList.map(({ date, month }) => (
-      <StyledCalendarCell key={date} inMonth={currentMonth === month}>{date}</StyledCalendarCell>
-    ))
+    return dayList.map(({ date, month, unix }) => {
+      console.log(unix, date)
+
+      const reminderToShowList = reminderList.filter(reminder => {
+        return reminder.unix > unix && reminder.unix < unix + dayInMilliseconds
+      });
+
+      return (
+        <StyledCalendarCell 
+          key={date} 
+          inMonth={currentMonth === month}
+        >
+            {date}
+            {reminderToShowList.length && <StyledCalendarReminderList>
+              {reminderToShowList.map(({ title, date, time, unix }) => {
+                return (
+                  <StyledCalendarReminder key={unix}>{title}</StyledCalendarReminder>
+                )
+              })}
+            </StyledCalendarReminderList>}
+        </StyledCalendarCell>
+      )
+    })
   }
 
   const firstDayInMonth = moment()
@@ -39,12 +61,12 @@ const Calendar = () => {
   const dayList = Array
     .from({length: 35}, (_,key) => key)
     .map(n => ({
-      time: firstUnixTime*1000 + n*60*60*24*1000
+      unix: firstUnixTime * 1000 + n * dayInMilliseconds
     }))
-    .map(({ time }) => ({
-      time,
-      date: moment(time).format('MMM Do'),
-      month: moment(time).format('MMM')
+    .map(({ unix }) => ({
+      unix,
+      date: moment(unix).format('MMM Do'),
+      month: moment(unix).format('MMM')
     }))
 
   return (

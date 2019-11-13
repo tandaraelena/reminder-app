@@ -34,7 +34,7 @@ export const initialReminderList = [
     "time": "02:00",
     "unix": 1573869600000
   }
-]
+].sort((a,b) => a.unix - b.unix)
 
 export const reminderListReducer = (state = [], action) => {
   switch(action.type) {
