@@ -31,7 +31,7 @@ const Calendar = ({ reminderList, setReminder, createReminderAction }) => {
           inMonth={currentMonth === month}
         >
             {date}
-            {reminderToShowList.length && <StyledCalendarReminderList>
+          {reminderToShowList && <StyledCalendarReminderList reminderListLengthIsZero={reminderToShowList.length === 0}>
               {reminderToShowList.map(({ title, date, time, unix }) => {
                 const handleReminder = () => {
                   setReminder(createReminderAction({

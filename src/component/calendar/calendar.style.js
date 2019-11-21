@@ -20,7 +20,7 @@ export const StyledCalendarReminder = styled.div`
 export const StyledCalendarReminderList = styled.div`
   display: grid;
   border-radius: 5px;
-  border: 1px solid red;
+  border: ${({ reminderListLengthIsZero }) => reminderListLengthIsZero ? 'none;' : '1px solid red;'};
   margin: 2px;
 `
 
